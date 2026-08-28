@@ -1,0 +1,86 @@
+{
+  "name": "nostr-agentic-identity",
+  "version": "0.1.0",
+  "description": "The standard for agentic identity on Nostr, plus a thin, dependency-light conformance primitive: the identity types, the act-outward gate predicate (owned + self + verified + funded), and a pure structural conformance checker. ESM + CommonJS.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "browser": "./dist/browser/nostr-agentic-identity.min.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "browser": "./dist/browser/nostr-agentic-identity.min.js",
+      "import": "./dist/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "scripts": {
+    "build": "npm run build:node && npm run build:browser",
+    "build:node": "tsc && tsc -p tsconfig.cjs.json && node scripts/fixup-cjs.mjs",
+    "build:browser": "node esbuild.browser.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "docs": "typedoc --out docs src/index.ts",
+    "docs:serve": "npx serve docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/humanjavaenterprises/nostr-agentic-identity.git"
+  },
+  "keywords": [
+    "nostr",
+    "agentic-identity",
+    "identity",
+    "npub",
+    "nip-05",
+    "standard",
+    "conformance",
+    "agent",
+    "typescript",
+    "esm",
+    "commonjs",
+    "dual-module",
+    "nostr-protocol",
+    "zero-dependency"
+  ],
+  "author": "vveerrgg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/humanjavaenterprises/nostr-agentic-identity/issues"
+  },
+  "homepage": "https://github.com/humanjavaenterprises/nostr-agentic-identity#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.20.1",
+    "@typescript-eslint/eslint-plugin": "^8.65.0",
+    "@typescript-eslint/parser": "^8.65.0",
+    "@vitest/coverage-v8": "^4.1.10",
+    "esbuild": "^0.28.1",
+    "eslint": "^10.7.0",
+    "prettier": "^3.9.6",
+    "typedoc": "^0.28.20",
+    "typedoc-plugin-markdown": "^4.12.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
+  },
+  "files": [
+    "dist",
+    "examples/**/*",
+    "README.md",
+    "SPEC.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

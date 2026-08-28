@@ -1,0 +1,28 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src/index.ts"],
+  "out": "docs",
+  "name": "nostr-agentic-identity",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true,
+  "plugin": ["typedoc-plugin-markdown"],
+  "theme": "default",
+  "readme": "README.md",
+  "categorizeByGroup": true,
+  "categoryOrder": [
+    "Types",
+    "Gate",
+    "Conformance",
+    "*"
+  ],
+  "navigationLinks": {
+    "GitHub": "https://github.com/humanjavaenterprises/nostr-agentic-identity",
+    "Standard": "https://github.com/humanjavaenterprises/nostr-agentic-identity/blob/main/SPEC.md"
+  },
+  "validation": {
+    "invalidLink": true,
+    "notDocumented": false
+  }
+}

@@ -1,3 +1,7 @@
+**nostr-agentic-identity v0.1.0**
+
+***
+
 # nostr-agentic-identity
 
 <div align="center">
@@ -14,14 +18,14 @@
 **A standard for agentic identity on Nostr — plus the thin conformance primitive that checks it.**
 
 This package is deliberately light: it is *not* a framework, a key mint, a relay client, or a login
-system. It ships the **definition** of what an agentic identity is — see **[SPEC.md](SPEC.md)**, the
+system. It ships the **definition** of what an agentic identity is — see **[SPEC.md](_media/SPEC.md)**, the
 authoritative standard — and the smallest possible code surface that enforces the load-bearing rule: the
 types, the act-outward **gate predicate**, and a pure structural **conformance checker**. The heavy
 reference implementations (vhaiku rendering, the identity composer, auth) live *under* the standard and are
 referenced, not bundled.
 
 > Status: **DRAFT 0.1** · The standard says **what**; the builder keeps discretion over **how** (which
-> relay, storage, login, wallet). Read **[SPEC.md](SPEC.md)** first — the code here is a thin expression of it.
+> relay, storage, login, wallet). Read **[SPEC.md](_media/SPEC.md)** first — the code here is a thin expression of it.
 
 ## Core Features
 
@@ -30,7 +34,7 @@ referenced, not bundled.
   standard, typed.
 - 🚪 **The act-outward gate** — `canActOutward(id)`: the one load-bearing predicate. Strict `===`; an
   identity may act outward **only** when it is `owned` + `self`-custody + `verified` + `funded`. Byte-for-byte
-  the rule in [SPEC §5](SPEC.md#5-the-act-outward-gate--the-one-line-where-the-upsell-is-the-abuse-filter).
+  the rule in [SPEC §5](_media/SPEC.md#5-the-act-outward-gate--the-one-line-where-the-upsell-is-the-abuse-filter).
 - ✅ **A structural conformance checker** — `isConformant(id)` returns `{ ok, issues[] }` against the
   spec's structural rules (tier/custody valid; owned ⇒ NIP-05; computed ⇒ no NIP-05, platform custody;
   owned ⇒ self-custody; etc.). Pure, no I/O.
@@ -39,7 +43,7 @@ referenced, not bundled.
 
 ## The Standard (six elements)
 
-The full standard is **[SPEC.md](SPEC.md)**. In brief, a conforming agentic identity solves for:
+The full standard is **[SPEC.md](_media/SPEC.md)**. In brief, a conforming agentic identity solves for:
 
 1. **Identity root** — a self-custodied `npub`; the holder controls the `nsec`.
 2. **Two tiers** — `computed` (free, platform-custody, inert) and `owned` (paid, self-custody, can act).
@@ -130,7 +134,7 @@ for (const element of describeStandard()) {
 
 ## Documentation
 
-- **[SPEC.md](SPEC.md)** — the authoritative standard (the six elements, conformance rules, what it is NOT).
+- **[SPEC.md](_media/SPEC.md)** — the authoritative standard (the six elements, conformance rules, what it is NOT).
 - API docs are generated from source with TypeDoc:
 
   ```bash
@@ -159,17 +163,17 @@ const { canActOutward } = require('nostr-agentic-identity');
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! Please see our [Contributing Guide](_media/CONTRIBUTING.md) for details.
 
 ## Security
 
-See [SECURITY.md](SECURITY.md) for how to report a vulnerability. Note the trust-boundary guidance above:
+See [SECURITY.md](_media/SECURITY.md) for how to report a vulnerability. Note the trust-boundary guidance above:
 this package is a checker — enforcement is only as strong as the non-forgeability of the fields you feed it.
 
 ## License
 
-MIT License — see the [LICENSE](LICENSE) file for details.
+MIT License — see the [LICENSE](_media/LICENSE) file for details.
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes.
+See [CHANGELOG.md](_media/CHANGELOG.md) for a detailed history of changes.
