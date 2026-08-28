@@ -24,6 +24,8 @@ jobs:
     - run: npm run lint
     - run: npm run build
     - run: npm test
+    # Prove the BUILT artifact (dist) conforms over every synthetic fixture.
+    - run: npm run smoke
 
   security:
     runs-on: ubuntu-latest

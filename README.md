@@ -115,7 +115,7 @@ const result = isConformant({
 });
 
 result.ok;      // false
-result.issues;  // ['owned identity must bind a NIP-05 (profile.nip05)']
+result.issues;  // ['owned identity must bind a NIP-05 (profile.nip05) (SPEC §3)']
 ```
 
 ### Describe the standard

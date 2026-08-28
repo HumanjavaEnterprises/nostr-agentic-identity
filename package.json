@@ -20,6 +20,7 @@
     "build:browser": "node esbuild.browser.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
+    "smoke": "npm run build && node scripts/smoke.mjs",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
