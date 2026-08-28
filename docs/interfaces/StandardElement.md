@@ -6,7 +6,7 @@
 
 # Interface: StandardElement
 
-Defined in: conformance.ts:92
+Defined in: [conformance.ts:92](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/conformance.ts#L92)
 
 One element of the six-element standard, as data.
 
@@ -16,7 +16,7 @@ One element of the six-element standard, as data.
 
 > **n**: `number`
 
-Defined in: conformance.ts:94
+Defined in: [conformance.ts:94](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/conformance.ts#L94)
 
 The element number (1–6), matching the SPEC section.
 
@@ -26,7 +26,7 @@ The element number (1–6), matching the SPEC section.
 
 > **summary**: `string`
 
-Defined in: conformance.ts:98
+Defined in: [conformance.ts:98](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/conformance.ts#L98)
 
 One-line summary.
 
@@ -36,6 +36,6 @@ One-line summary.
 
 > **title**: `string`
 
-Defined in: conformance.ts:96
+Defined in: [conformance.ts:96](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/conformance.ts#L96)
 
 Short title.

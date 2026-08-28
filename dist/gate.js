@@ -3,11 +3,12 @@
  *
  * An identity may perform an **outward** action (send email, place a call, publish on its
  * behalf) **only when** it is `owned` + `self`-custody + `verified` + `funded`. A `computed`
- * identity is structurally unable to pass — it is never `owned`, never `self`-custody — so the
- * free tier can be *seen and reached* but never *acts*.
+ * identity is structurally unable to pass — it is never `owned`, never `self`-custody — so an
+ * identity no one has vouched for can be *seen and reached* but never *acts*.
  *
- * This single predicate is simultaneously the commercial gate (own it to act) and the abuse
- * filter (an unfunded, unverified stranger cannot send or call).
+ * This predicate is an authorization and abuse-control boundary: `verified` and `funded` are
+ * what make outward action attributable and costly. The standard does not prescribe how an
+ * implementation establishes either signal.
  *
  * The comparison is strict (`===`): a truthy-but-non-`true` value (`1`, `'yes'`) does NOT pass.
  * The capability-bearing fields MUST be non-forgeable at the trust boundary — call this on an

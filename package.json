@@ -1,6 +1,6 @@
 {
   "name": "nostr-agentic-identity",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The standard for agentic identity on Nostr, plus a thin, dependency-light conformance primitive: the identity types, the act-outward gate predicate (owned + self + verified + funded), and a pure structural conformance checker. ESM + CommonJS.",
   "type": "module",
   "main": "./dist/index.js",

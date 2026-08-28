@@ -8,7 +8,7 @@
 
 > `const` **CUSTODIES**: readonly \[`"platform"`, `"self"`\]
 
-Defined in: types.ts:27
+Defined in: [types.ts:27](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/types.ts#L27)
 
 Who custodies the identity's `nsec` (SPEC §2).
 

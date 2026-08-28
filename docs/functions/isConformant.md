@@ -8,7 +8,7 @@
 
 > **isConformant**(`id`): [`ConformanceResult`](../interfaces/ConformanceResult.md)
 
-Defined in: conformance.ts:35
+Defined in: [conformance.ts:35](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/conformance.ts#L35)
 
 Check an identity against the structural rules of the standard (SPEC §1–§5).
 

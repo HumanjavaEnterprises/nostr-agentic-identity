@@ -8,7 +8,7 @@
 
 > **describeStandard**(): [`StandardElement`](../interfaces/StandardElement.md)[]
 
-Defined in: conformance.ts:106
+Defined in: [conformance.ts:106](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/conformance.ts#L106)
 
 Return the six elements of the standard (SPEC §1–§6) as data.
 

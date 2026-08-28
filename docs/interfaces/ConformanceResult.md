@@ -6,7 +6,7 @@
 
 # Interface: ConformanceResult
 
-Defined in: conformance.ts:4
+Defined in: [conformance.ts:4](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/conformance.ts#L4)
 
 The result of a structural conformance check.
 
@@ -16,7 +16,7 @@ The result of a structural conformance check.
 
 > **issues**: `string`[]
 
-Defined in: conformance.ts:8
+Defined in: [conformance.ts:8](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/conformance.ts#L8)
 
 Human-readable descriptions of every structural rule the identity violates.
 
@@ -26,6 +26,6 @@ Human-readable descriptions of every structural rule the identity violates.
 
 > **ok**: `boolean`
 
-Defined in: conformance.ts:6
+Defined in: [conformance.ts:6](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/conformance.ts#L6)
 
 `true` when there are no structural issues.

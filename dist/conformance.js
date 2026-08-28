@@ -81,10 +81,10 @@ export function isConformant(id) {
 export function describeStandard() {
     return [
         { n: 1, title: 'Identity root', summary: 'a self-custodied npub; the holder controls the nsec' },
-        { n: 2, title: 'Two tiers', summary: 'computed (free/inert) and owned (paid/can-act)' },
-        { n: 3, title: 'Profile', summary: 'kind-0 metadata; owned identities bind a NIP-05 on a paid anchor' },
+        { n: 2, title: 'Two tiers', summary: 'computed (platform-custody, inert) and owned (self-custody, can act)' },
+        { n: 3, title: 'Profile', summary: 'kind-0 metadata; owned identities bind a NIP-05 on a controlled domain' },
         { n: 4, title: 'Vhaiku', summary: 'a visualization derived from the npub by code, not a hosted image' },
-        { n: 5, title: 'Act-outward gate', summary: 'owned && self && verified && funded — the upsell is the abuse filter' },
+        { n: 5, title: 'Act-outward gate', summary: 'owned && self && verified && funded — an authorization and abuse-control boundary' },
         { n: 6, title: 'Passwordless auth', summary: 'magic link / QR / passkey, enumeration-safe, per-request reload' },
     ];
 }

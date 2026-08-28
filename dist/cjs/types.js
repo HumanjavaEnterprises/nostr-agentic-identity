@@ -12,8 +12,8 @@ exports.CUSTODIES = exports.TIERS = void 0;
 /**
  * The two tiers an identity may hold (SPEC §2).
  *
- * - `computed` — free, platform-derived, structurally inert (can never act outward).
- * - `owned` — paid, freshly minted, self-custodied (can act outward when funded + verified).
+ * - `computed` — platform-derived, structurally inert (can never act outward).
+ * - `owned` — freshly minted, self-custodied (can act outward when funded + verified).
  */
 exports.TIERS = ['computed', 'owned'];
 /**

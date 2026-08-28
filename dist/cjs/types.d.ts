@@ -9,8 +9,8 @@
 /**
  * The two tiers an identity may hold (SPEC §2).
  *
- * - `computed` — free, platform-derived, structurally inert (can never act outward).
- * - `owned` — paid, freshly minted, self-custodied (can act outward when funded + verified).
+ * - `computed` — platform-derived, structurally inert (can never act outward).
+ * - `owned` — freshly minted, self-custodied (can act outward when funded + verified).
  */
 export declare const TIERS: readonly ["computed", "owned"];
 /** An identity tier — `'computed'` or `'owned'` (SPEC §2). */
@@ -28,20 +28,20 @@ export type Custody = (typeof CUSTODIES)[number];
  * The identity's profile — its DATA, distinct from its visualization (SPEC §3).
  *
  * Published as a Nostr kind-0 event signed by the identity's key. Owned identities
- * carry a NIP-05 binding on a paid anchor; computed identities carry only a free,
- * provider-scoped handle.
+ * carry a NIP-05 binding on a domain under the holder's or its provider's control;
+ * computed identities carry only a provider-scoped handle.
  */
 export interface Profile {
-    /** The display handle. Free/provider-scoped for computed; paid for owned. */
+    /** The display handle. Provider-scoped for computed; NIP-05-bound for owned. */
     handle: string;
-    /** NIP-05 binding on a paid anchor. Present for `owned`, absent for `computed`. */
+    /** NIP-05 binding on a controlled domain. Present for `owned`, absent for `computed`. */
     nip05?: string;
 }
 /**
  * A vhaiku — a visualization derived from the npub by code, NOT a hosted image (SPEC §4).
  *
- * This package does not generate vhaikus; it only carries the reference. Generation is a
- * reference implementation (`vhaiku`) that lives under the standard.
+ * This package does not generate vhaikus; it only carries the reference. Generation is
+ * performed by any deterministic, code-derived generator under the standard.
  */
 export interface Vhaiku {
     /** Deterministic token identifying this render set (derived from the key). */
@@ -60,7 +60,7 @@ export interface Vhaiku {
 export interface AgenticIdentity {
     /** The self-custodied Nostr public key, bech32-encoded (SPEC §1). The stable anchor. */
     npub: string;
-    /** The tier — `computed` (free/inert) or `owned` (paid/can-act) (SPEC §2). */
+    /** The tier — `computed` (inert) or `owned` (can act outward) (SPEC §2). */
     tier: Tier;
     /** Who holds the nsec — `platform` or `self` (SPEC §2). */
     custody: Custody;

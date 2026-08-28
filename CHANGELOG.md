@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-08-28
+
+Documentation correction. No API changes — every export, signature, and behavior is identical to
+0.1.0; `canActOutward` and `isConformant` are byte-for-byte the same logic.
+
+### Changed
+- **SPEC.md §2** — the two tiers are now defined by **custody** (platform-derived vs self-custodied)
+  rather than by price. The tier table's `Cost` row is replaced with `Accountability`.
+- **SPEC.md §5** — retitled to "The act-outward gate" and described as an authorization and
+  abuse-control boundary. `verified` and `funded` are what make outward action attributable and
+  costly; the standard no longer characterizes the predicate in commercial terms.
+- **SPEC.md §4** — describes the required *property* (any deterministic, code-derived generator
+  conforms) instead of naming a specific unreleased generator as the reference implementation.
+- **SPEC.md "What this standard is NOT"** — adds an explicit **Not a business model** boundary: the
+  standard is silent on pricing, packaging, and tiering economics, and two conforming implementations
+  may make opposite commercial choices.
+- **`describeStandard()`** — element summaries for §2, §3 and §5 reworded to match the above. This is
+  a *string content* change in returned data, not a shape change.
+- Doc-comments in `types.ts` and `gate.ts`, and the corresponding README sections, reworded to match.
+
+### Why
+0.1.0 carried framing from internal product design into a public standard. Beyond being internal, it
+made the specification less useful: a standard that hard-codes one party's tier economics cannot be
+adopted by an implementer whose economics differ. Conformance turns on custody and accountability,
+which is the actual technical invariant.
+
 ## [0.1.0] - 2026-08-28
 
 Initial draft release — the standard, plus the thin conformance primitive.

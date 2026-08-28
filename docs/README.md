@@ -34,7 +34,7 @@ referenced, not bundled.
   standard, typed.
 - 🚪 **The act-outward gate** — `canActOutward(id)`: the one load-bearing predicate. Strict `===`; an
   identity may act outward **only** when it is `owned` + `self`-custody + `verified` + `funded`. Byte-for-byte
-  the rule in [SPEC §5](_media/SPEC.md#5-the-act-outward-gate--the-one-line-where-the-upsell-is-the-abuse-filter).
+  the rule in [SPEC §5](_media/SPEC.md#5-the-act-outward-gate).
 - ✅ **A structural conformance checker** — `isConformant(id)` returns `{ ok, issues[] }` against the
   spec's structural rules (tier/custody valid; owned ⇒ NIP-05; computed ⇒ no NIP-05, platform custody;
   owned ⇒ self-custody; etc.). Pure, no I/O.
@@ -46,10 +46,12 @@ referenced, not bundled.
 The full standard is **[SPEC.md](_media/SPEC.md)**. In brief, a conforming agentic identity solves for:
 
 1. **Identity root** — a self-custodied `npub`; the holder controls the `nsec`.
-2. **Two tiers** — `computed` (free, platform-custody, inert) and `owned` (paid, self-custody, can act).
-3. **Profile** — kind-0 metadata; owned identities bind a **NIP-05** on a paid anchor.
+2. **Two tiers** — `computed` (platform-custody, inert) and `owned` (self-custody, can act). The
+   distinction is custody, not price; the standard is silent on pricing.
+3. **Profile** — kind-0 metadata; owned identities bind a **NIP-05** on a controlled domain.
 4. **Vhaiku** — a visualization *derived from the npub by code*, **not a hosted image**.
-5. **The act-outward gate** — `owned && self && verified && funded` (§5); the upsell *is* the abuse filter.
+5. **The act-outward gate** — `owned && self && verified && funded` (§5); an authorization and
+   abuse-control boundary.
 6. **Passwordless auth** — magic link / QR / passkey, enumeration-safe, per-request reload.
 
 `describeStandard()` returns this list as data.
@@ -92,14 +94,14 @@ if (canActOutward(owned)) {
   // send the email / place the call / publish on its behalf
 }
 
-const free: AgenticIdentity = {
+const computed: AgenticIdentity = {
   npub: 'npub1...',
   tier: 'computed',
   custody: 'platform',
   profile: { handle: 'guest-4f2a' },
 };
 
-canActOutward(free); // false — a computed identity is structurally inert
+canActOutward(computed); // false — a computed identity is structurally inert
 ```
 
 > **Gate at the trust boundary.** Call `canActOutward` on an identity you re-loaded from your own store of
@@ -119,7 +121,7 @@ const result = isConformant({
 });
 
 result.ok;      // false
-result.issues;  // ['owned identity must bind a NIP-05 (profile.nip05)']
+result.issues;  // ['owned identity must bind a NIP-05 (profile.nip05) (SPEC §3)']
 ```
 
 ### Describe the standard

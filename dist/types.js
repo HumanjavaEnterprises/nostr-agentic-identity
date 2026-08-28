@@ -9,8 +9,8 @@
 /**
  * The two tiers an identity may hold (SPEC §2).
  *
- * - `computed` — free, platform-derived, structurally inert (can never act outward).
- * - `owned` — paid, freshly minted, self-custodied (can act outward when funded + verified).
+ * - `computed` — platform-derived, structurally inert (can never act outward).
+ * - `owned` — freshly minted, self-custodied (can act outward when funded + verified).
  */
 export const TIERS = ['computed', 'owned'];
 /**

@@ -18,6 +18,18 @@ non-forgeable at the trust boundary where you enforce the gate. Re-load the iden
 record and evaluate it there — never gate an outward action on a caller-supplied or freshly-deserialized
 identity object (see SPEC §5). This package has zero runtime dependencies.
 
+## Auth posture the standard mandates (SPEC §6)
+
+The gate is only half the security model; the door is the other half. A conforming implementation of the
+standard MUST provide **passwordless-always** access — magic link, QR bearer, or passkey; **never a stored
+password**. Auth and intake responses MUST be **enumeration-safe**: identical for a known and an unknown
+subject, so an attacker cannot probe which identities exist. And sessions MUST **re-load the identity from
+the store of record on every request** rather than trusting a long-lived cached capability, so that
+revocation (and any change to the `verified`/`funded`/`custody` fields the gate reads) takes effect
+immediately. This package does not implement auth — §6 is out of scope for the thin conformance primitive —
+but any system that composes it into a login or session flow is only conformant, and only safe, if it holds
+this posture. See SPEC §6 and the reference `nostr-*` auth family.
+
 ## Reporting a Vulnerability
 
 Please report security vulnerabilities through GitHub's Security Advisory feature at [https://github.com/humanjavaenterprises/nostr-agentic-identity/security/advisories/new](https://github.com/humanjavaenterprises/nostr-agentic-identity/security/advisories/new).
