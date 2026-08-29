@@ -37,7 +37,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/humanjavaenterprises/nostr-agentic-identity.git"
+    "url": "git+https://github.com/HumanjavaEnterprises/nostr-agentic-identity.git"
   },
   "keywords": [
     "nostr",
@@ -58,9 +58,9 @@
   "author": "vveerrgg",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/humanjavaenterprises/nostr-agentic-identity/issues"
+    "url": "https://github.com/HumanjavaEnterprises/nostr-agentic-identity/issues"
   },
-  "homepage": "https://github.com/humanjavaenterprises/nostr-agentic-identity#readme",
+  "homepage": "https://github.com/HumanjavaEnterprises/nostr-agentic-identity#readme",
   "dependencies": {},
   "devDependencies": {
     "@eslint/js": "^10.0.1",
