@@ -10,7 +10,7 @@
 
 Defined in: [gate.ts:23](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/gate.ts#L23)
 
-The act-outward gate (SPEC §5) — the one load-bearing predicate of the standard.
+The act-outward gate (SPEC §5) — the single rule this standard enforces.
 
 An identity may perform an **outward** action (send email, place a call, publish on its
 behalf) **only when** it is `owned` + `self`-custody + `verified` + `funded`. A `computed`

@@ -119,7 +119,7 @@ keys, talk to relays, render vhaikus, or log anyone in — those are heavier imp
 | `Tier` (`'computed' \| 'owned'`), `TIERS` | §2 | the two tiers |
 | `Custody` (`'platform' \| 'self'`), `CUSTODIES` | §2 | custody semantics |
 | `AgenticIdentity` | §1–§4 | `npub`, `tier`, `custody`, `profile{handle,nip05?}`, `vhaiku?{tokenId,renders}`, `verified?`, `funded?` |
-| `canActOutward(id)` | §5 | the load-bearing gate — strict `===`, byte-identical to §5 |
+| `canActOutward(id)` | §5 | the gate — strict `===`, byte-identical to §5 |
 | `isConformant(id)` | §1–§5 | pure structural checker → `{ ok, issues[] }` |
 | `describeStandard()` | this doc | the six-element list, as data |
 

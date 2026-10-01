@@ -45,7 +45,7 @@ Initial draft release — the standard, plus the thin conformance primitive.
   standard is NOT. Preserves the full prose formerly in the README.
 - **Types** (SPEC §1–§4): `AgenticIdentity`, `Tier` (`'computed' | 'owned'`),
   `Custody` (`'platform' | 'self'`), `Profile`, `Vhaiku`, and the `TIERS` / `CUSTODIES` constants.
-- **`canActOutward(id)`** (SPEC §5): the load-bearing gate predicate. Strict `===`; returns `true`
+- **`canActOutward(id)`** (SPEC §5): the gate predicate this standard turns on. Strict `===`; returns `true`
   only for `owned` + `self` + `verified === true` + `funded === true`.
 - **`isConformant(id)`**: a pure structural conformance checker returning `{ ok, issues[] }`
   (tier/custody valid; owned ⇒ self-custody + NIP-05; computed ⇒ platform-custody + no NIP-05 +

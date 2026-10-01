@@ -1,7 +1,7 @@
 /**
  * Act-outward gate example — nostr-agentic-identity
  *
- * Demonstrates the load-bearing §5 predicate: an identity may act outward only when it is
+ * Demonstrates the essential §5 predicate: an identity may act outward only when it is
  * owned + self-custody + verified + funded. A computed identity is structurally inert.
  */
 import { canActOutward, type AgenticIdentity } from 'nostr-agentic-identity';

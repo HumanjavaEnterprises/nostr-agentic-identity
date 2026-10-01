@@ -19,7 +19,7 @@
 
 This package is deliberately light: it is *not* a framework, a key mint, a relay client, or a login
 system. It ships the **definition** of what an agentic identity is — see **[SPEC.md](_media/SPEC.md)**, the
-authoritative standard — and the smallest possible code surface that enforces the load-bearing rule: the
+authoritative standard — and the smallest possible code surface that enforces the rule: the
 types, the act-outward **gate predicate**, and a pure structural **conformance checker**. The heavy
 reference implementations (vhaiku rendering, the identity composer, auth) live *under* the standard and are
 referenced, not bundled.
@@ -32,7 +32,7 @@ referenced, not bundled.
 - 🪪 **The agentic identity model, as types** — `AgenticIdentity`, `Tier` (`computed` | `owned`),
   `Custody` (`platform` | `self`), and the `TIERS` / `CUSTODIES` constants. The six-element model of the
   standard, typed.
-- 🚪 **The act-outward gate** — `canActOutward(id)`: the one load-bearing predicate. Strict `===`; an
+- 🚪 **The act-outward gate** — `canActOutward(id)`: the single rule this standard enforces. Strict `===`; an
   identity may act outward **only** when it is `owned` + `self`-custody + `verified` + `funded`. Byte-for-byte
   the rule in [SPEC §5](_media/SPEC.md#5-the-act-outward-gate).
 - ✅ **A structural conformance checker** — `isConformant(id)` returns `{ ok, issues[] }` against the
