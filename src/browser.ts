@@ -1,5 +1,6 @@
 /**
- * Browser entry point — re-exports the full public API for the IIFE bundle.
+ * Entry for the `<script>` IIFE bundle (unpkg/jsdelivr, global `NostrAgenticIdentity`).
+ * Bundlers do NOT use this: the package `browser`/`workerd` conditions resolve to the ESM `dist/index.js`.
  *
  * @packageDocumentation
  */

@@ -9,4 +9,4 @@
  */
 export { TIERS, CUSTODIES, type Tier, type Custody, type Profile, type Vhaiku, type AgenticIdentity, } from './types.js';
 export { canActOutward } from './gate.js';
-export { isConformant, describeStandard, type ConformanceResult, type StandardElement, } from './conformance.js';
+export { isConformant, describeStandard, type ConformanceResult, type ConformanceOptions, type StandardElement, } from './conformance.js';

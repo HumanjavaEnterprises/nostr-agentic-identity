@@ -1,4 +1,4 @@
-[**nostr-agentic-identity v0.1.0**](../README.md)
+[**nostr-agentic-identity v0.2.0**](../README.md)
 
 ***
 
@@ -8,7 +8,7 @@
 
 > **describeStandard**(): [`StandardElement`](../interfaces/StandardElement.md)[]
 
-Defined in: [conformance.ts:106](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/conformance.ts#L106)
+Defined in: [conformance.ts:163](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/73045671d22ec705149ba235d43625dc74559066/src/conformance.ts#L163)
 
 Return the six elements of the standard (SPEC §1–§6) as data.
 

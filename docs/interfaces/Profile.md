@@ -1,4 +1,4 @@
-[**nostr-agentic-identity v0.1.0**](../README.md)
+[**nostr-agentic-identity v0.2.0**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: Profile
 
-Defined in: [types.ts:39](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/types.ts#L39)
+Defined in: [types.ts:39](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/73045671d22ec705149ba235d43625dc74559066/src/types.ts#L39)
 
 The identity's profile — its DATA, distinct from its visualization (SPEC §3).
 
@@ -20,7 +20,7 @@ computed identities carry only a provider-scoped handle.
 
 > **handle**: `string`
 
-Defined in: [types.ts:41](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/types.ts#L41)
+Defined in: [types.ts:41](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/73045671d22ec705149ba235d43625dc74559066/src/types.ts#L41)
 
 The display handle. Provider-scoped for computed; NIP-05-bound for owned.
 
@@ -30,6 +30,6 @@ The display handle. Provider-scoped for computed; NIP-05-bound for owned.
 
 > `optional` **nip05?**: `string`
 
-Defined in: [types.ts:43](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/types.ts#L43)
+Defined in: [types.ts:43](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/73045671d22ec705149ba235d43625dc74559066/src/types.ts#L43)
 
 NIP-05 binding on a controlled domain. Present for `owned`, absent for `computed`.

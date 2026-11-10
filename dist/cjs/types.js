@@ -15,11 +15,11 @@ exports.CUSTODIES = exports.TIERS = void 0;
  * - `computed` — platform-derived, structurally inert (can never act outward).
  * - `owned` — freshly minted, self-custodied (can act outward when funded + verified).
  */
-exports.TIERS = ['computed', 'owned'];
+exports.TIERS = Object.freeze(['computed', 'owned']);
 /**
  * Who custodies the identity's `nsec` (SPEC §2).
  *
  * - `platform` — the holder never receives an nsec (computed identities).
  * - `self` — the nsec was handed to the holder once and never retained (owned identities).
  */
-exports.CUSTODIES = ['platform', 'self'];
+exports.CUSTODIES = Object.freeze(['platform', 'self']);

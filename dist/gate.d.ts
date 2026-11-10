@@ -16,6 +16,12 @@ import type { AgenticIdentity } from './types.js';
  * identity re-loaded from your store of record, never on a caller-supplied or deserialized
  * object.
  *
+ * Only **own** properties are read: a field inherited from a prototype (including a class
+ * instance's prototype getter, or a polluted `Object.prototype`) does not count.
+ *
+ * Never throws: `null`, `undefined`, arrays, non-objects, and objects whose fields cannot be read
+ * return `false`.
+ *
  * @param id - the identity to evaluate
  * @returns `true` only for `owned` + `self` + `verified === true` + `funded === true`
  */

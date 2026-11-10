@@ -69,6 +69,10 @@ canActOutward(id)  ==  id.tier === 'owned'
                     && id.funded  === true
 ```
 
+The four fields are read as **own properties** of the identity record. A value inherited through a
+prototype (a class instance's prototype getter, a polluted `Object.prototype`) does not count, and an
+array is never an identity.
+
 A **computed** identity is structurally unable to pass this — it is never `owned`, never `self`-custody.
 So an identity that no one has vouched for can be *seen and reached* but never *acts*.
 
@@ -119,8 +123,8 @@ keys, talk to relays, render vhaikus, or log anyone in — those are heavier imp
 | `Tier` (`'computed' \| 'owned'`), `TIERS` | §2 | the two tiers |
 | `Custody` (`'platform' \| 'self'`), `CUSTODIES` | §2 | custody semantics |
 | `AgenticIdentity` | §1–§4 | `npub`, `tier`, `custody`, `profile{handle,nip05?}`, `vhaiku?{tokenId,renders}`, `verified?`, `funded?` |
-| `canActOutward(id)` | §5 | the gate — strict `===`, byte-identical to §5 |
-| `isConformant(id)` | §1–§5 | pure structural checker → `{ ok, issues[] }` |
+| `canActOutward(id)` | §5 | the gate — strict `===` over own properties, byte-identical to §5; never throws, fails closed (`false`) |
+| `isConformant(id, options?)` | §1–§5 | pure structural checker → `{ ok, issues[] }`; reads own properties only; never throws. §1: `npub` must be a lowercase bech32 `npub` with a valid checksum and a 32-byte payload. `options.looseNpub === true` falls back to the 0.1.x rule (any non-empty string) |
 | `describeStandard()` | this doc | the six-element list, as data |
 
 The runtime behaviors of §1 (minting), §4 (rendering), and §6 (auth) are **out of scope** for this package

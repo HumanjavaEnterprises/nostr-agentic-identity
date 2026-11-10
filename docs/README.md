@@ -1,4 +1,4 @@
-**nostr-agentic-identity v0.1.0**
+**nostr-agentic-identity v0.2.0**
 
 ***
 
@@ -36,10 +36,12 @@ referenced, not bundled.
   identity may act outward **only** when it is `owned` + `self`-custody + `verified` + `funded`. Byte-for-byte
   the rule in [SPEC §5](_media/SPEC.md#5-the-act-outward-gate).
 - ✅ **A structural conformance checker** — `isConformant(id)` returns `{ ok, issues[] }` against the
-  spec's structural rules (tier/custody valid; owned ⇒ NIP-05; computed ⇒ no NIP-05, platform custody;
-  owned ⇒ self-custody; etc.). Pure, no I/O.
+  spec's structural rules (the `npub` is a real bech32 npub with a 32-byte key; tier/custody valid;
+  owned ⇒ NIP-05; computed ⇒ no NIP-05, platform custody; owned ⇒ self-custody; etc.). Pure, no I/O.
+- 🔒 **Fails closed** — neither function throws on bad input: `canActOutward(null)` is `false`, and
+  `isConformant(null)` is `{ ok: false, issues: [...] }`.
 - 🪶 **Zero runtime dependencies** — types + one predicate + a checker. The lightest peer in the `nostr-*`
-  family. ESM + CommonJS + `.d.ts`, plus a browser bundle.
+  family. ESM + CommonJS + `.d.ts`; runs in browsers and Cloudflare Workers.
 
 ## The Standard (six elements)
 
@@ -82,7 +84,7 @@ npm install nostr-agentic-identity
 import { canActOutward, type AgenticIdentity } from 'nostr-agentic-identity';
 
 const owned: AgenticIdentity = {
-  npub: 'npub1...',
+  npub: 'npub1ryu8nexstwexchemh4uemfgh2pl020d23zdjt77jptz85hqs980s4yk28x',
   tier: 'owned',
   custody: 'self',
   profile: { handle: 'ada', nip05: 'ada@paid.example' },
@@ -95,7 +97,7 @@ if (canActOutward(owned)) {
 }
 
 const computed: AgenticIdentity = {
-  npub: 'npub1...',
+  npub: 'npub10nqk7yyj95hjadvk2n760f3apgse7p9use89hacrncq0gpa64vrqm847y6',
   tier: 'computed',
   custody: 'platform',
   profile: { handle: 'guest-4f2a' },
@@ -114,7 +116,7 @@ canActOutward(computed); // false — a computed identity is structurally inert
 import { isConformant, type AgenticIdentity } from 'nostr-agentic-identity';
 
 const result = isConformant({
-  npub: 'npub1...',
+  npub: 'npub1ryu8nexstwexchemh4uemfgh2pl020d23zdjt77jptz85hqs980s4yk28x',
   tier: 'owned',
   custody: 'self',
   profile: { handle: 'ada' }, // missing NIP-05 for an owned identity
@@ -123,6 +125,10 @@ const result = isConformant({
 result.ok;      // false
 result.issues;  // ['owned identity must bind a NIP-05 (profile.nip05) (SPEC §3)']
 ```
+
+The `npub` must be a lowercase bech32 `npub` (valid checksum, 32-byte key). A placeholder such as
+`'npub1...'` is reported as an issue. To keep the 0.1.x rule (any non-empty string), pass
+`isConformant(id, { looseNpub: true })`.
 
 ### Describe the standard
 
@@ -145,7 +151,8 @@ for (const element of describeStandard()) {
 
 ## Module Support
 
-Dual ESM + CommonJS, with a browser bundle and full type declarations.
+Dual ESM + CommonJS with full type declarations. Bundlers (Vite, webpack, esbuild) and Cloudflare
+Workers resolve the ESM build through the `browser` / `workerd` / `worker` export conditions.
 
 ### ESM (recommended)
 ```typescript
@@ -155,6 +162,17 @@ import { canActOutward } from 'nostr-agentic-identity';
 ### CommonJS
 ```javascript
 const { canActOutward } = require('nostr-agentic-identity');
+```
+
+### `<script>` tag
+A minified IIFE bundle is published for CDNs (`unpkg` / `jsdelivr`) and exposes the global
+`NostrAgenticIdentity`:
+
+```html
+<script src="https://unpkg.com/nostr-agentic-identity"></script>
+<script>
+  NostrAgenticIdentity.canActOutward(null); // false
+</script>
 ```
 
 ## Reference implementations (under the standard, not bundled here)

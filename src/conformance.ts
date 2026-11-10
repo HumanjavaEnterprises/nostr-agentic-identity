@@ -1,4 +1,6 @@
 import { CUSTODIES, TIERS, type AgenticIdentity } from './types.js';
+import { isValidNpub } from './npub.js';
+import { own } from './own.js';
 
 /** The result of a structural conformance check. */
 export interface ConformanceResult {
@@ -8,16 +10,26 @@ export interface ConformanceResult {
   issues: string[];
 }
 
+/** Options for {@link isConformant}. */
+export interface ConformanceOptions {
+  /**
+   * Opt back into the 0.1.x rule for SPEC §1: accept any non-empty `npub` string without
+   * checking that it is a bech32 npub. Default `false` (the npub is validated).
+   */
+  looseNpub?: boolean;
+}
+
 /**
  * Check an identity against the structural rules of the standard (SPEC §1–§5).
  *
- * This is a **pure, structural** check — no I/O, no crypto, no network. It verifies the shape
- * and the tier/custody invariants; it does NOT verify that the `npub` is a real key, that a
+ * This is a **pure, structural** check — no I/O, no network. It verifies the shape and the
+ * tier/custody invariants; it does NOT verify that the `npub` is a point on the curve, that a
  * NIP-05 resolves, or that funds exist. Those are runtime concerns for the reference
  * implementations under the standard.
  *
  * Rules enforced:
- * - `npub` is a non-empty string (SPEC §1).
+ * - `npub` is a lowercase bech32 `npub` with a valid checksum and a 32-byte payload (SPEC §1).
+ *   Pass `{ looseNpub: true }` to fall back to the 0.1.x non-empty-string rule.
  * - `tier` is one of {@link TIERS} and `custody` is one of {@link CUSTODIES} (SPEC §2).
  * - `profile.handle` is a non-empty string (SPEC §3).
  * - `owned` ⇒ `custody === 'self'`; `computed` ⇒ `custody === 'platform'` (SPEC §2).
@@ -29,20 +41,62 @@ export interface ConformanceResult {
  * combined with `canActOutward` requiring `owned` + `self`, means no conformant computed identity
  * can act outward. There is therefore no separate reachable check for it here.
  *
+ * Only **own** properties of `id`, its `profile`/`vhaiku`, and `options` are read; inherited
+ * values (a prototype, a polluted `Object.prototype`) count as missing.
+ *
+ * Never throws: `null`, non-objects, and objects with throwing getters return `ok: false` with
+ * at least one issue.
+ *
  * @param id - the identity to check
+ * @param options - see {@link ConformanceOptions}
  * @returns `{ ok, issues }`
  */
-export function isConformant(id: AgenticIdentity): ConformanceResult {
+export function isConformant(id: AgenticIdentity, options?: ConformanceOptions): ConformanceResult {
+  try {
+    return check(id, options);
+  } catch {
+    // A hostile or exotic object (throwing getter, revoked Proxy, ...) fails closed.
+    return { ok: false, issues: ['identity could not be read (SPEC §1)'] };
+  }
+}
+
+function isObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
+
+function nonEmptyString(v: unknown): v is string {
+  return typeof v === 'string' && v.length > 0;
+}
+
+function check(input: unknown, options: unknown): ConformanceResult {
+  if (!isObject(input)) {
+    return { ok: false, issues: ['identity must be an object (SPEC §1)'] };
+  }
+  // Only OWN properties are read, on the identity and on the options (SPEC §5: data records).
+  const npub = own(input, 'npub');
+  const tier = own(input, 'tier');
+  const custody = own(input, 'custody');
+  const rawProfile = own(input, 'profile');
+  const rawVhaiku = own(input, 'vhaiku');
+  const looseNpub = isObject(options) && own(options, 'looseNpub') === true;
   const issues: string[] = [];
 
   // §1 — identity root
-  if (typeof id.npub !== 'string' || id.npub.length === 0) {
-    issues.push('npub must be a non-empty string (SPEC §1)');
+  if (looseNpub) {
+    if (!nonEmptyString(npub)) {
+      issues.push('npub must be a non-empty string (SPEC §1)');
+    }
+  } else if (!isValidNpub(npub)) {
+    issues.push(
+      nonEmptyString(npub)
+        ? 'npub must be a bech32 npub encoding a 32-byte public key (SPEC §1)'
+        : 'npub must be a non-empty string; a bech32 npub encoding a 32-byte public key (SPEC §1)',
+    );
   }
 
   // §2 — tiers and custody must be present and valid
-  const tierValid = (TIERS as readonly string[]).includes(id.tier);
-  const custodyValid = (CUSTODIES as readonly string[]).includes(id.custody);
+  const tierValid = (TIERS as readonly unknown[]).includes(tier);
+  const custodyValid = (CUSTODIES as readonly unknown[]).includes(custody);
   if (!tierValid) {
     issues.push(`tier must be one of ${TIERS.join(' | ')} (SPEC §2)`);
   }
@@ -51,22 +105,23 @@ export function isConformant(id: AgenticIdentity): ConformanceResult {
   }
 
   // §3 — profile is DATA
-  if (!id.profile || typeof id.profile.handle !== 'string' || id.profile.handle.length === 0) {
+  const profile = isObject(rawProfile) ? rawProfile : undefined;
+  if (!profile || !nonEmptyString(own(profile, 'handle'))) {
     issues.push('profile.handle must be a non-empty string (SPEC §3)');
   }
-  const hasNip05 = typeof id.profile?.nip05 === 'string' && id.profile.nip05.length > 0;
+  const hasNip05 = profile !== undefined && nonEmptyString(own(profile, 'nip05'));
 
   // §2/§3 — tier-specific invariants (only meaningful when the tier is valid)
   if (tierValid) {
-    if (id.tier === 'owned') {
-      if (id.custody !== 'self') {
+    if (tier === 'owned') {
+      if (custody !== 'self') {
         issues.push('owned identity must be self-custodied (custody === "self") (SPEC §2)');
       }
       if (!hasNip05) {
         issues.push('owned identity must bind a NIP-05 (profile.nip05) (SPEC §3)');
       }
-    } else if (id.tier === 'computed') {
-      if (id.custody !== 'platform') {
+    } else if (tier === 'computed') {
+      if (custody !== 'platform') {
         issues.push('computed identity must be platform-custodied (custody === "platform") (SPEC §2)');
       }
       if (hasNip05) {
@@ -76,11 +131,13 @@ export function isConformant(id: AgenticIdentity): ConformanceResult {
   }
 
   // §4 — vhaiku shape, if present
-  if (id.vhaiku !== undefined) {
-    if (typeof id.vhaiku.tokenId !== 'string' || id.vhaiku.tokenId.length === 0) {
+  if (rawVhaiku !== undefined) {
+    const vhaiku = isObject(rawVhaiku) ? rawVhaiku : undefined;
+    const renders = vhaiku ? own(vhaiku, 'renders') : undefined;
+    if (!vhaiku || !nonEmptyString(own(vhaiku, 'tokenId'))) {
       issues.push('vhaiku.tokenId must be a non-empty string (SPEC §4)');
     }
-    if (!Array.isArray(id.vhaiku.renders) || id.vhaiku.renders.length === 0) {
+    if (!Array.isArray(renders) || renders.length === 0) {
       issues.push('vhaiku.renders must be a non-empty array (SPEC §4)');
     }
   }

@@ -1,8 +1,8 @@
-[**nostr-agentic-identity v0.1.0**](README.md)
+[**nostr-agentic-identity v0.2.0**](README.md)
 
 ***
 
-# nostr-agentic-identity v0.1.0
+# nostr-agentic-identity v0.2.0
 
 nostr-agentic-identity — the thin conformance primitive for the agentic identity standard.
 
@@ -13,6 +13,7 @@ keys, talk to relays, render vhaikus, or log anyone in.
 ## Interfaces
 
 - [AgenticIdentity](interfaces/AgenticIdentity.md)
+- [ConformanceOptions](interfaces/ConformanceOptions.md)
 - [ConformanceResult](interfaces/ConformanceResult.md)
 - [Profile](interfaces/Profile.md)
 - [StandardElement](interfaces/StandardElement.md)

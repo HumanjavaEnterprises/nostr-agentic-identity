@@ -13,7 +13,7 @@
  * - `computed` — platform-derived, structurally inert (can never act outward).
  * - `owned` — freshly minted, self-custodied (can act outward when funded + verified).
  */
-export const TIERS = ['computed', 'owned'] as const;
+export const TIERS = Object.freeze(['computed', 'owned'] as const);
 
 /** An identity tier — `'computed'` or `'owned'` (SPEC §2). */
 export type Tier = (typeof TIERS)[number];
@@ -24,7 +24,7 @@ export type Tier = (typeof TIERS)[number];
  * - `platform` — the holder never receives an nsec (computed identities).
  * - `self` — the nsec was handed to the holder once and never retained (owned identities).
  */
-export const CUSTODIES = ['platform', 'self'] as const;
+export const CUSTODIES = Object.freeze(['platform', 'self'] as const);
 
 /** A custody mode — `'platform'` or `'self'` (SPEC §2). */
 export type Custody = (typeof CUSTODIES)[number];

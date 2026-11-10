@@ -1,4 +1,4 @@
-[**nostr-agentic-identity v0.1.0**](../README.md)
+[**nostr-agentic-identity v0.2.0**](../README.md)
 
 ***
 
@@ -8,7 +8,7 @@
 
 > **canActOutward**(`id`): `boolean`
 
-Defined in: [gate.ts:23](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/gate.ts#L23)
+Defined in: [gate.ts:30](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/73045671d22ec705149ba235d43625dc74559066/src/gate.ts#L30)
 
 The act-outward gate (SPEC §5) — the single rule this standard enforces.
 
@@ -25,6 +25,12 @@ The comparison is strict (`===`): a truthy-but-non-`true` value (`1`, `'yes'`) d
 The capability-bearing fields MUST be non-forgeable at the trust boundary — call this on an
 identity re-loaded from your store of record, never on a caller-supplied or deserialized
 object.
+
+Only **own** properties are read: a field inherited from a prototype (including a class
+instance's prototype getter, or a polluted `Object.prototype`) does not count.
+
+Never throws: `null`, `undefined`, arrays, non-objects, and objects whose fields cannot be read
+return `false`.
 
 ## Parameters
 

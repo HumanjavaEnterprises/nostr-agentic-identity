@@ -1,4 +1,4 @@
-[**nostr-agentic-identity v0.1.0**](../README.md)
+[**nostr-agentic-identity v0.2.0**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: Vhaiku
 
-Defined in: [types.ts:52](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/types.ts#L52)
+Defined in: [types.ts:52](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/73045671d22ec705149ba235d43625dc74559066/src/types.ts#L52)
 
 A vhaiku — a visualization derived from the npub by code, NOT a hosted image (SPEC §4).
 
@@ -19,7 +19,7 @@ performed by any deterministic, code-derived generator under the standard.
 
 > **renders**: `string`[]
 
-Defined in: [types.ts:56](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/types.ts#L56)
+Defined in: [types.ts:56](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/73045671d22ec705149ba235d43625dc74559066/src/types.ts#L56)
 
 Render variants (e.g. avatar, banner, mark), each code-derived — never hosted media.
 
@@ -29,6 +29,6 @@ Render variants (e.g. avatar, banner, mark), each code-derived — never hosted 
 
 > **tokenId**: `string`
 
-Defined in: [types.ts:54](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/types.ts#L54)
+Defined in: [types.ts:54](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/73045671d22ec705149ba235d43625dc74559066/src/types.ts#L54)
 
 Deterministic token identifying this render set (derived from the key).

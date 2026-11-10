@@ -11,7 +11,7 @@ import {
 
 // A conformant owned identity: self-custody + NIP-05 bound.
 const owned: AgenticIdentity = {
-  npub: 'npub1ownedexample',
+  npub: 'npub1ryu8nexstwexchemh4uemfgh2pl020d23zdjt77jptz85hqs980s4yk28x',
   tier: 'owned',
   custody: 'self',
   profile: { handle: 'ada', nip05: 'ada@paid.example' },
@@ -22,7 +22,7 @@ console.log('owned:', isConformant(owned)); // { ok: true, issues: [] }
 
 // A non-conformant owned identity: missing the required NIP-05.
 const missingNip05: AgenticIdentity = {
-  npub: 'npub1ownedexample',
+  npub: 'npub1ryu8nexstwexchemh4uemfgh2pl020d23zdjt77jptz85hqs980s4yk28x',
   tier: 'owned',
   custody: 'self',
   profile: { handle: 'ada' },

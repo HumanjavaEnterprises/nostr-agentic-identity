@@ -7,7 +7,7 @@
 import { canActOutward, type AgenticIdentity } from 'nostr-agentic-identity';
 
 const owned: AgenticIdentity = {
-  npub: 'npub1ownedexample',
+  npub: 'npub1ryu8nexstwexchemh4uemfgh2pl020d23zdjt77jptz85hqs980s4yk28x',
   tier: 'owned',
   custody: 'self',
   profile: { handle: 'ada', nip05: 'ada@paid.example' },
@@ -16,7 +16,7 @@ const owned: AgenticIdentity = {
 };
 
 const free: AgenticIdentity = {
-  npub: 'npub1computedexample',
+  npub: 'npub10nqk7yyj95hjadvk2n760f3apgse7p9use89hacrncq0gpa64vrqm847y6',
   tier: 'computed',
   custody: 'platform',
   profile: { handle: 'guest-4f2a' },

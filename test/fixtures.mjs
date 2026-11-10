@@ -30,7 +30,7 @@ export const validFixtures = [
   {
     name: 'computedValid',
     id: {
-      npub: 'npub1computedvalid',
+      npub: 'npub1z5q4k0mj8jvelrfdpcl298vry6c9tq6tggnv0mz7ufmeg8c5d38swpv7wd',
       tier: 'computed',
       custody: 'platform',
       profile: { handle: 'guest-4f2a' },
@@ -40,7 +40,7 @@ export const validFixtures = [
   {
     name: 'ownedValid',
     id: {
-      npub: 'npub1ownedvalid',
+      npub: 'npub1j2ge0nnaqapsyjcsjctz7qxudvcnmststjrl3tnvv83ntaw2xfgqqduuta',
       tier: 'owned',
       custody: 'self',
       profile: { handle: 'ada', nip05: 'ada@paid.example' },
@@ -57,7 +57,7 @@ export const invalidFixtures = [
   {
     name: 'ownedNoNip05',
     id: {
-      npub: 'npub1ownednonip05',
+      npub: 'npub1fxutsuw9ggf59jq8te8pv5y6t3m0xuuaf9znt4tmhddh8xw0d40qcwxpx2',
       tier: 'owned',
       custody: 'self',
       profile: { handle: 'ada' },
@@ -70,7 +70,7 @@ export const invalidFixtures = [
   {
     name: 'computedWithNip05',
     id: {
-      npub: 'npub1computedwithnip05',
+      npub: 'npub1xuddc4pt0ylfg3vj85jjsej8xsuvp4f4quh6svkqj84eq4fxkk6qrewjuh',
       tier: 'computed',
       custody: 'platform',
       profile: { handle: 'guest', nip05: 'guest@paid.example' },
@@ -80,7 +80,7 @@ export const invalidFixtures = [
   {
     name: 'ownedNotSelfCustody',
     id: {
-      npub: 'npub1ownednotself',
+      npub: 'npub1k28m9mwcazq3lz6ztwsd6jwv76wqllatzhc89yavvg2zf6zhdudsgdjacp',
       tier: 'owned',
       custody: 'platform',
       profile: { handle: 'ada', nip05: 'ada@paid.example' },
@@ -93,7 +93,7 @@ export const invalidFixtures = [
     // The forged-custody case: computed dressed up to look like it can act.
     name: 'computedForgedActor',
     id: {
-      npub: 'npub1forged',
+      npub: 'npub1v2r7uw6pvcusz0dg9pdy95z5zxy68fgpyuqqqljujp4s7gajnt6sqljg5z',
       tier: 'computed',
       custody: 'self',
       profile: { handle: 'guest' },
@@ -105,7 +105,7 @@ export const invalidFixtures = [
   {
     name: 'invalidTier',
     id: {
-      npub: 'npub1invalidtier',
+      npub: 'npub1ae6gzwnzck0239gfs6xwve833kfk92yj39uv8prttuq7j2kadv7sw6gh8r',
       tier: 'premium',
       custody: 'self',
       profile: { handle: 'ada', nip05: 'ada@paid.example' },
@@ -127,7 +127,7 @@ export const invalidFixtures = [
   {
     name: 'emptyHandle',
     id: {
-      npub: 'npub1emptyhandle',
+      npub: 'npub12eylnvultlqcsaj5t5n7hrafmdu2rfdmvwddczcue7j5qf6kz5tq4054ew',
       tier: 'owned',
       custody: 'self',
       profile: { handle: '', nip05: 'ada@paid.example' },
@@ -140,7 +140,7 @@ export const invalidFixtures = [
     // The untested branch the checker flagged: vhaiku present but tokenId empty.
     name: 'vhaikuEmptyTokenId',
     id: {
-      npub: 'npub1vhaikunotoken',
+      npub: 'npub1dar7v3ut9fsv0c4e672py0x0fquzvghng883dyzs8zdh5klpur6quavm7c',
       tier: 'owned',
       custody: 'self',
       profile: { handle: 'ada', nip05: 'ada@paid.example' },
@@ -153,7 +153,7 @@ export const invalidFixtures = [
   {
     name: 'vhaikuEmptyRenders',
     id: {
-      npub: 'npub1vhaikunorenders',
+      npub: 'npub13wkpeg5wkpv80pk8ys4a3npmk80m9lj7r5rsd3sxfpl80s0tchzs5um6a7',
       tier: 'owned',
       custody: 'self',
       profile: { handle: 'ada', nip05: 'ada@paid.example' },
@@ -162,6 +162,45 @@ export const invalidFixtures = [
       vhaiku: { tokenId: 'tok1', renders: [] },
     },
     expect: { conformant: false, canAct: true, issue: 'vhaiku.renders must be a non-empty array' },
+  },
+  {
+    // SPEC §1: the root is a bech32 npub. A non-bech32 string must not pass.
+    name: 'notAnNpub',
+    id: { npub: 'not-an-npub', tier: 'computed', custody: 'platform', profile: { handle: 'x' } },
+    expect: { conformant: false, canAct: false, issue: 'npub must be a bech32 npub' },
+  },
+  {
+    // Valid-looking npub with one checksum character changed.
+    name: 'npubBadChecksum',
+    id: {
+      npub: 'npub1z5q4k0mj8jvelrfdpcl298vry6c9tq6tggnv0mz7ufmeg8c5d38swpv7wq',
+      tier: 'computed',
+      custody: 'platform',
+      profile: { handle: 'x' },
+    },
+    expect: { conformant: false, canAct: false, issue: 'npub must be a bech32 npub' },
+  },
+  {
+    // Correct bech32 checksum but the nsec prefix: never accept a secret key as the root.
+    name: 'nsecAsNpub',
+    id: {
+      npub: 'nsec194c3vs4hy6cygqtz0j5lhtpj7hy9xra3jq7vfkczykr30ys6fzqs7qqm39',
+      tier: 'computed',
+      custody: 'platform',
+      profile: { handle: 'x' },
+    },
+    expect: { conformant: false, canAct: false, issue: 'npub must be a bech32 npub' },
+  },
+  {
+    // Correct checksum and prefix, but a 31-byte payload.
+    name: 'npubShortPayload',
+    id: {
+      npub: 'npub194c3vs4hy6cygqtz0j5lhtpj7hy9xra3jq7vfkczykr30ys6fqjnq85f',
+      tier: 'computed',
+      custody: 'platform',
+      profile: { handle: 'x' },
+    },
+    expect: { conformant: false, canAct: false, issue: 'npub must be a bech32 npub' },
   },
 ];
 

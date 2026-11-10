@@ -1,3 +1,4 @@
+import { own } from './own.js';
 /**
  * The act-outward gate (SPEC §5) — the single rule this standard enforces.
  *
@@ -15,12 +16,28 @@
  * identity re-loaded from your store of record, never on a caller-supplied or deserialized
  * object.
  *
+ * Only **own** properties are read: a field inherited from a prototype (including a class
+ * instance's prototype getter, or a polluted `Object.prototype`) does not count.
+ *
+ * Never throws: `null`, `undefined`, arrays, non-objects, and objects whose fields cannot be read
+ * return `false`.
+ *
  * @param id - the identity to evaluate
  * @returns `true` only for `owned` + `self` + `verified === true` + `funded === true`
  */
 export function canActOutward(id) {
-    return (id.tier === 'owned' &&
-        id.custody === 'self' &&
-        id.verified === true &&
-        id.funded === true);
+    // Fail closed: anything that is not a readable object is denied, never a TypeError.
+    // Arrays are not identity records. Only OWN properties count: inherited values (a prototype,
+    // a polluted Object.prototype) never grant capability.
+    if (typeof id !== 'object' || id === null || Array.isArray(id))
+        return false;
+    try {
+        return (own(id, 'tier') === 'owned' &&
+            own(id, 'custody') === 'self' &&
+            own(id, 'verified') === true &&
+            own(id, 'funded') === true);
+    }
+    catch {
+        return false;
+    }
 }

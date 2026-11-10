@@ -4,7 +4,7 @@ const result = await build({
   entryPoints: ['src/browser.ts'],
   bundle: true,
   minify: true,
-  sourcemap: true,
+  sourcemap: false,
   format: 'iife',
   globalName: 'NostrAgenticIdentity',
   outfile: 'dist/browser/nostr-agentic-identity.min.js',

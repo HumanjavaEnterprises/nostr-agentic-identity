@@ -24,5 +24,6 @@ export {
   isConformant,
   describeStandard,
   type ConformanceResult,
+  type ConformanceOptions,
   type StandardElement,
 } from './conformance.js';

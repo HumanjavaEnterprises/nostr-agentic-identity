@@ -1,4 +1,4 @@
-[**nostr-agentic-identity v0.1.0**](../README.md)
+[**nostr-agentic-identity v0.2.0**](../README.md)
 
 ***
 
@@ -8,7 +8,7 @@
 
 > `const` **TIERS**: readonly \[`"computed"`, `"owned"`\]
 
-Defined in: [types.ts:16](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/69edbe69a36544a2c334ed38748c434826825153/src/types.ts#L16)
+Defined in: [types.ts:16](https://github.com/HumanjavaEnterprises/nostr-agentic-identity/blob/73045671d22ec705149ba235d43625dc74559066/src/types.ts#L16)
 
 The two tiers an identity may hold (SPEC §2).
 
